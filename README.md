@@ -59,7 +59,7 @@ how the improved RFSniffer operates:
                RADIO_PULSE_ON_1_ALL
                RADIO_PULSE_OFF_1_ALL
 
-      - if no descriptive names string is supplied but just the stub text then all the above is captured without the descriptive ending.
+      - If no descriptive names string is supplied but just the stub text then all the above is captured without the descriptive ending.
         If a descriptive names string is supplied and no stub then the above is capture with a stub of "RF"
  
       - If an environment variable exists already in the /etc/environment and the scheme of stub/descritive name would create an identical name, then the variable will be updated with the value captured on the from the receiver. 

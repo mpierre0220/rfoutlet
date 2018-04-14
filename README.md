@@ -54,10 +54,10 @@ how the improved RFSniffer operates:
                RADIO_PULSE_ON_4_BEDROOM
                RADIO_PULSE_OFF_4_BEDROOM
  
-               RADIO_ON_1_ALL
-               RADIO_OFF_1_ALL
-               RADIO_PULSE_ON_1_ALL
-               RADIO_PULSE_OFF_1_ALL
+               RADIO_ON_ALL
+               RADIO_OFF_ALL
+               RADIO_PULSE_ON_ALL
+               RADIO_PULSE_OFF_ALL
 
       - If no descriptive names string is supplied but just the stub text then all the above is captured without the descriptive ending.
         If a descriptive names string is supplied and no stub then the above is capture with a stub of "RF"

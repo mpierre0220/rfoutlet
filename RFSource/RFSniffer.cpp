@@ -33,19 +33,19 @@
                RADIO_PULSE_OFF_1_TV
 
                RADIO_ON_2_LIGHT
-               RADIO_OFF_1_LIGHT
-               RADIO_PULSE_ON_1_LIGHT
-               RADIO_PULSE_OFF_1_LIGHT
+               RADIO_OFF_2_LIGHT
+               RADIO_PULSE_ON_2_LIGHT
+               RADIO_PULSE_OFF_2_LIGHT
 
-               RADIO_ON_1_FAN
-               RADIO_OFF_1_FAN
-               RADIO_PULSE_ON_1_FAN
-               RADIO_PULSE_OFF_1_FAN
+               RADIO_ON_3_FAN
+               RADIO_OFF_3_FAN
+               RADIO_PULSE_ON_3_FAN
+               RADIO_PULSE_OFF_3_FAN
 
-               RADIO_ON_1_BEDROOM
-               RADIO_OFF_1_BEDROOM
-               RADIO_PULSE_ON_1_BEDROOM
-               RADIO_PULSE_OFF_1_BEDROOM
+               RADIO_ON_4_BEDROOM
+               RADIO_OFF_4_BEDROOM
+               RADIO_PULSE_ON_4_BEDROOM
+               RADIO_PULSE_OFF_4_BEDROOM
  
                RADIO_ON_1_ALL
                RADIO_OFF_1_ALL

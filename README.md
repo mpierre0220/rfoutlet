@@ -59,7 +59,8 @@ how the improved RFSniffer operates:
                RADIO_PULSE_ON_ALL
                RADIO_PULSE_OFF_ALL
 
-      ###Note the last scans control all the outlets at once.
+      ### Note:
+          The last scans control all the outlets at once.
       
       - If no descriptive names string is supplied but just the stub text then all the above is captured without the descriptive ending.
         If a descriptive names string is supplied and no stub then the above is capture with a stub of "RF".

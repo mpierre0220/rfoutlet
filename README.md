@@ -25,7 +25,7 @@ how the improved RFSniffer operates:
       - Generate environment variable names based on a stub text and an optional descriptive names string
       - The default stub name is "RF"
       - It also keeps the remote button numbers for an easy matching of button and function/outlet name
-      - If a space-separated descriptive names string is passed in then it uses the substring count+1 to capture to ON, OFF, pulse ON, pulse OFF
+      - If a space-separated descriptive names string is passed in then it uses the number of substrings  + 1 to capture to ON, OFF, pulse ON, pulse OFF codes.
        - For all the buttons on the remote including the button that turns on/off all the devices listening to the remote.
 
        - For example if the following arguments are passed:
@@ -59,6 +59,8 @@ how the improved RFSniffer operates:
                RADIO_PULSE_ON_ALL
                RADIO_PULSE_OFF_ALL
 
+      ###Note the last scans control all the outlets at once.
+      
       - If no descriptive names string is supplied but just the stub text then all the above is captured without the descriptive ending.
         If a descriptive names string is supplied and no stub then the above is capture with a stub of "RF".
  

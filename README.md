@@ -66,4 +66,4 @@ how the improved RFSniffer operates:
 
       - If a generated variable does not exist in /etc/environment, it is simply appended to the file.
 
-      - if you ctrl-c during a scan/capture run you are given the chance to save data captured so far.  
+      - If you ctrl-c during a scan/capture run you are given the chance to save data captured so far.  

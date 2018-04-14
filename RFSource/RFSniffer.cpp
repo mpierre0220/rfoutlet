@@ -9,7 +9,7 @@
   Hacked from http://code.google.com/p/rc-switch/
   by @justy to provide a handy RF code sniffer
 
-  @mpierre modified to automatically add the scans to /etc/environment
+  @mpierre0220 modified to automatically add the scans to /etc/environment
 
   The following features are available
   (1) The default orignal function is maintained
@@ -102,7 +102,7 @@ char *trim(char *datastring)
 
 int isCommented(char *entry){
    char * nent=entry;
-   if (*nent=='#') {
+   if (*(trim(nent))=='#') {
       return true;
    } else {
       return false;
@@ -160,15 +160,18 @@ int last=false;
 void dumpEntry(struct EnvEntry * entry){
    printf("EnvEntry: name=>%s\nvalue==>%s\nline=>%s\nmodify==>%i\n", entry->name, entry->value, entry->line, entry->modify);
 }
-void scanEnvForBadChars(){
+void scanEnvForBadChars(char c){
    int i=0;
+   char *scan=(char *)malloc(2);
+   *scan=c;
+   *(scan+1)=0;
    int bad=false;
    while(envEntries[i]){
-     if (strstr(envEntries[i]->value,"!")) {
+     if (strstr(envEntries[i]->value,scan)) {
         printf("bad char detected in %s\n",envEntries[i]->value);
         getchar();
         bad=true;
-     } else if(strstr(envEntries[i]->line,"!")) {
+     } else if(strstr(envEntries[i]->line,scan)) {
         printf("bad char detected in %s at index %d\n",envEntries[i]->line,i);
         getchar();
         bad=true;
@@ -179,6 +182,7 @@ void scanEnvForBadChars(){
       printf("no bad chars in the environment\n");
       getchar();
    }
+   free(scan);
 }
 
 //parse the environment entries and put them is a name-value structure
@@ -297,45 +301,41 @@ int getNewValue(char *name, RScans rscans[]){
    return 0;
 }
 int save_environment(char * buffer){
-  //if the user ctrl-c while we're here, we will not reenter
-  if (!saving) {
-     saving=true;
-     int rc;
-     rc=system("sudo cp /etc/environment /etc/environment.bak");
-     if (rc!=0){
-         printf("%sUnexpected error backing /etc/environment, into /etc/environment.bak, operation aborted\n",RED);
-         exit(1);
-     }    
-     char fname[]="/tmp/environXXXXXX";
-     int fd=mkstemp(fname);
-     if (fd==-1){
-         printf("%sUnexpected error creating a temporary file, operation aborted\n",RED);
-         exit(1);
-     }
-     //printf("tmp file name %s \n"  ,fname);
-     write(fd,buffer, strlen(buffer));
-     close(fd);
-     char *cmd=(char *)malloc(256);
-     sprintf(cmd,"sudo chmod 644 %s",fname);
-     rc=system(cmd);
-     if (rc!=0){
-         printf("%sUnexpected error changing access to a temporary file, operation aborted\n",RED);
-         exit(1);
-     }
-     sprintf(cmd,"sudo mv %s /etc/environment",fname);
-     rc=system(cmd);
-     if (rc!=0){
-         printf("%sUnexpected error renaming a temporary file into /etc/environment, operation aborted\n",RED);
-         exit(1);
-     }
-     if (access("/etc/environment", F_OK)!=-1) {
-         unlink("/etc/environment.bak");
-     } else {
-         printf("%sUnexpected error accessing /etc/environment, use /etc/environment.bak, operation aborted\n",RED);
-         exit(1);
-     }    
-     printf("Environment file saved\n");
-  }
+   //if the user ctrl-c while we're here, we will not reenter
+   int rc=system("sudo cp /etc/environment /etc/environment.bak");
+   if (rc!=0){
+       printf("%sUnexpected error backing /etc/environment, into /etc/environment.bak, operation aborted\n",RED);
+       exit(1);
+   }    
+   char fname[]="/tmp/environXXXXXX";
+   int fd=mkstemp(fname);
+   if (fd==-1){
+       printf("%sUnexpected error creating a temporary file, operation aborted\n",RED);
+       exit(1);
+   }
+   //printf("tmp file name %s \n"  ,fname);
+   write(fd,buffer, strlen(buffer));
+   close(fd);
+   char *cmd=(char *)malloc(256);
+   sprintf(cmd,"sudo chmod 644 %s",fname);
+   rc=system(cmd);
+   if (rc!=0){
+       printf("%sUnexpected error changing access to a temporary file, operation aborted\n",RED);
+       exit(1);
+   }
+   sprintf(cmd,"sudo mv %s /etc/environment",fname);
+   rc=system(cmd);
+   if (rc!=0){
+       printf("%sUnexpected error renaming a temporary file into /etc/environment, operation aborted\n",RED);
+       exit(1);
+   }
+   if (access("/etc/environment", F_OK)!=-1) {
+       unlink("/etc/environment.bak");
+   } else {
+       printf("%sUnexpected error accessing /etc/environment, use /etc/environment.bak, operation aborted\n",RED);
+       exit(1);
+   }    
+   printf("Environment file saved\n");
 }
 
 void promptToSaveEnvironment(char *buffer){
@@ -362,7 +362,7 @@ char * dumpEnvEntries(int buff){
    if (envEntries[i]){
       printf("\n/etc/enviroment will look as follows:\n____________________________\n");
       #ifdef debug
-      scanEnvForBadChars();
+      scanEnvForBadChars('!');
       #endif
    }
    while (envEntries[i]){
@@ -422,6 +422,12 @@ void adjustEnvLine(char *name, int value){
    int i=0;
    int found=false;
    //printf("Adjusting environment with %s and %d\n",name, value);
+   if (!name) {
+      return;
+   }
+   if (*name==0){
+      return;
+   }
    while (envEntries[i]){
       if (strcmp(envEntries[i]->name,name)==0){
          envEntries[i]->oldval=(char *)malloc(strlen(envEntries[i]->value)+1);
@@ -465,7 +471,7 @@ void adjustEnvLine(char *name, int value){
       #endif
    } 
    #ifdef debug
-   scanEnvForBadChars();
+   scanEnvForBadChars('!');
    #endif       
 }
 
@@ -504,8 +510,8 @@ void adjustEnvironmentBuffer(RScans rs[]) {
       i++;
    }
    #ifdef debug
-   printf("in adjustEnvironmentBuffer(), calling for scanEnvForBadChars()\n");
-   scanEnvForBadChars();
+   printf("in adjustEnvironmentBuffer(), calling for scanEnvForBadChars('!')\n");
+   scanEnvForBadChars('!');
    #endif
 }
 
@@ -570,13 +576,15 @@ struct EnvEntry ** get_environment(struct RadioScans *rscans[]){
 
 //ctrl-c handler
 void intHandler(int dummy) {
+   
    if (!inHandler) {
       inHandler=true;  
       keepRunning = 0;
       if (!oldway && !saving) {
          if (showScans()) {
             get_environment(rscans);
-            dumpEnvEntries(true);
+            char *buffer=dumpEnvEntries(true);
+            promptToSaveEnvironment(buffer);
          }
       }
    }
@@ -793,13 +801,14 @@ int main(int argc, char *argv[]) {
                       printf("%-60s%i\n",rscans[scansCount]->namepulseoff, rscans[scansCount]->pulseoff);
                      
                       if (last) {
+                         saving=true;
                          //our job is complete so get the environment file and merge it with
                          showScans();
                            
                          //struct EnvEntry **eEnt=;
                          get_environment(rscans);
                          #ifdef debug
-                         scanEnvForBadChars();
+                         scanEnvForBadChars('!');
                          #endif
                          char *buffer=dumpEnvEntries(true);
                          promptToSaveEnvironment(buffer);

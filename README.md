@@ -22,10 +22,10 @@ how the improved RFSniffer operates:
       
   2. The following new functionality is added    
 
-    - Generate environment variable names based on a stub text and an optional descriptive names string
-    - The default stub name is "RF"
-    - It also keeps the remote button numbers for an easy matching of button and function/outlet name
-    - If a space-separated descriptive names string is passed in then it uses the substring count+1 to capture to ON, OFF, pulse ON, pulse OFF
+      - Generate environment variable names based on a stub text and an optional descriptive names string
+      - The default stub name is "RF"
+      - It also keeps the remote button numbers for an easy matching of button and function/outlet name
+      - If a space-separated descriptive names string is passed in then it uses the substring count+1 to capture to ON, OFF, pulse ON, pulse OFF
        - for all the buttons on the remote including the button that turns on/off all the devices listening to the remote
 
        - for example if the following arguments are passed:
@@ -59,11 +59,11 @@ how the improved RFSniffer operates:
                RADIO_PULSE_ON_1_ALL
                RADIO_PULSE_OFF_1_ALL
 
-    - if no descriptive names string is supplied but just the stub text then all the above is captured without the descriptive ending.
+      - if no descriptive names string is supplied but just the stub text then all the above is captured without the descriptive ending.
         If a descriptive names string is supplied and no stub then the above is capture with a stub of "RF"
  
-    - If an environment variable exists already in the /etc/environment and the scheme of stub/descritive name would create an identical name, then the variable will be updated with the value captured on the from the receiver. 
+      - If an environment variable exists already in the /etc/environment and the scheme of stub/descritive name would create an identical name, then the variable will be updated with the value captured on the from the receiver. 
 
-    - If a generated variable does not exist in /etc/environment, it is simply appended to the file.
+      - If a generated variable does not exist in /etc/environment, it is simply appended to the file.
 
-    - if you ctrl-c during a scan/capture run you are given the chance to save data captured so far.  
+      - if you ctrl-c during a scan/capture run you are given the chance to save data captured so far.  

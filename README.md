@@ -30,7 +30,7 @@ how the improved RFSniffer operates:
 
        - for example if the following arguments are passed:
 
-              -b RADIO -d "TV LIGHT FAN BEDROOM"
+              ./RFSniffer -b RADIO -d "TV LIGHT FAN BEDROOM"
 
          - then the following is captured:
          

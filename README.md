@@ -1,4 +1,4 @@
-# Automatically store your 433Mhz RF scan codes to your /etc/environment file on the Raspberry Pi
+## Automatically store your 433Mhz RF scan codes to your /etc/environment file on the Raspberry Pi
 
 In using the 433Mhz radio to control home outlets using your Raspberry Pi you use executable codesend to send the on/off code to the outlets.
 The strategy is to store these codes in /etc/environment and pull them to control the outlets. You detect them by using a remote control with

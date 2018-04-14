@@ -26,9 +26,9 @@ how the improved RFSniffer operates:
       - The default stub name is "RF"
       - It also keeps the remote button numbers for an easy matching of button and function/outlet name
       - If a space-separated descriptive names string is passed in then it uses the substring count+1 to capture to ON, OFF, pulse ON, pulse OFF
-       - for all the buttons on the remote including the button that turns on/off all the devices listening to the remote
+       - For all the buttons on the remote including the button that turns on/off all the devices listening to the remote
 
-       - for example if the following arguments are passed:
+       - For example if the following arguments are passed:
 
               ./RFSniffer -b RADIO -d "TV LIGHT FAN BEDROOM"
 

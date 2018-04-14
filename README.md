@@ -18,13 +18,14 @@ how the improved RFSniffer operates:
       i.e. when you point the remote at the receiver and click, RFSniffer displays the code and pulse length the receiver reads and
       keeps doing that until you exit (ctrl-c) 
   2. The following new functionality is added 
-      a. Generate environment variable names based on a stub text and an optional descriptive names string
-         The default stub name is "RF"
-         It also keeps the remote button numbers for an easy matching of button and function/outlet name
-         If a space-separated descriptive names string is passed in then it uses the substring count+1 to capture to ON, OFF, pulse ON, pulse OFF
-         for all the buttons on the remote including the button that turns on/off all the devices listening to the remote
 
-         for example if the following arguments are passed:
+      a. Generate environment variable names based on a stub text and an optional descriptive names string
+         - The default stub name is "RF"
+         - It also keeps the remote button numbers for an easy matching of button and function/outlet name
+         - If a space-separated descriptive names string is passed in then it uses the substring count+1 to capture to ON, OFF, pulse ON, pulse OFF
+         - for all the buttons on the remote including the button that turns on/off all the devices listening to the remote
+
+         - for example if the following arguments are passed:
 
               -b RADIO -d "TV LIGHT FAN BEDROOM"
 
